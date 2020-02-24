@@ -104,15 +104,23 @@ namespace Assignment2_CT_Spring2020
             int sum = 0;
             try
             {
+               //loop through elements in array from 1st element to last but one
+               //we loop through till last but one element because it will be
+               // incremented before last index if it is same as previous element.
                 for (int i = 0; i < l2.Length - 1; i++)
                 {
+                    /*increment the next element by 1 if it is same as previous
+                     element. Increment it by 1 to keep distinct and sum minimum.
+                     */
                     if (l2[i] == l2[i + 1])
                     {
                         l2[i + 1] = l2[i + 1] + 1;
                     }
+
                     sum += l2[i];
                 }
-                sum += l2[^1];
+                //add the last element sum as it won't be added in for loop.
+                sum += l2[l2.Length - 1];
             }
             catch (Exception)
             {

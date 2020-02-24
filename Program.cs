@@ -6,12 +6,12 @@ Q2
 Time: 3 hours
 
 Q3
-Time: 
+Time: 1.5 hours.
 
 Q4
-Time: 
+Time: 3 hours.
 Q5
-Time: 
+Time: 4 hours.
 
 Q6 
 Time: 2 hours
@@ -23,7 +23,7 @@ Q8
 Time: 3 hours 
 
 Q9
-Time:
+Time: 8 - 10 hours.
 */
 
 
@@ -99,7 +99,7 @@ namespace Assignment2_CT_Spring2020
             }
         }
 
-         public static int MinimumSum(int[] l2)
+        public static int MinimumSum(int[] l2)
         {
             try
             {

@@ -1,32 +1,3 @@
-/*
-Q1
-Time: 2 hours
-
-Q2
-Time: 3 hours
-
-Q3
-Time: 1.5 hours.
-
-Q4
-Time: 3 hours.
-Q5
-Time: 4 hours.
-
-Q6 
-Time: 2 hours
-
-Q7
-Time: 4 hours
-
-Q8
-Time: 3 hours 
-
-Q9
-Time: 8 - 10 hours.
-*/
-
-
 using System;
 using System.Collections.Generic;
 using System.Linq;

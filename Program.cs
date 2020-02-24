@@ -72,42 +72,51 @@ namespace Assignment2_CT_Spring2020
 
         public static int MinimumSum(int[] l2)
         {
-            int sum = 0;
             try
             {
-               //loop through elements in array from 1st element to last but one
-               //we loop through till last but one element because it will be
-               // incremented before last index if it is same as previous element.
-                for (int i = 0; i < l2.Length - 1; i++)
+                //loop through elements in array.
+                int total = 0;
+                for (int i = 0; i < l2.Length; i++)
                 {
-                    /*increment the next element by 1 if it is same as previous
-                     element. Increment it by 1 to keep distinct and sum minimum.
-                     */
-                    if (l2[i] == l2[i + 1])
+                    //add first element to total
+                    if (i == 0)
+                        total += l2[i];
+                    //add element to total if present and previous elements are
+                    //different.
+                    if (i > 0 && l2[i] != l2[i - 1])
+                        total += l2[i];
+                    //Increment present element if present and previous elements
+                    //are same then add it to total.
+                    if (i > 0 && l2[i] == l2[i - 1])
                     {
-                        l2[i + 1] = l2[i + 1] + 1;
+                        l2[i] = l2[i] + 1;
+                        total += l2[i];
                     }
-
-                    sum += l2[i];
                 }
-                //add the last element sum as it won't be added in for loop.
-                sum += l2[l2.Length - 1];
+                return total;
             }
             catch (Exception)
             {
                 throw;
             }
-            return sum;
         }
-
+        
         public static string FreqSort(string s2)
         {
+            //initialize empty string to store result.
             string result = "";
             try
             {
+                //create empty dictinoary freq with character keys and integer values
                 Dictionary<char, int> freq = new Dictionary<char, int>();
+
+                /* Loop through the string to add character keys and their occurrence
+                 * count in the string.
+                 */
                 for (int i = 0; i < s2.Length; i++)
                 {
+                    //If key exists, add to occurrence count else initialize
+                    //value of key(character) to 1.
                     if (freq.ContainsKey(s2[i]))
                     {
                         freq[s2[i]] += 1;
@@ -118,10 +127,19 @@ namespace Assignment2_CT_Spring2020
                     }
                 }
 
+                //Create sorted dictinoary of integer keys and list of characters.
                 SortedDictionary<int, List<char>> sortedfreq = new SortedDictionary<int, List<char>>();
 
+                /* Loop through freq dictionary and load sorted dictionary
+                 * dictionary contains integer value which represents number of
+                 * times a character repeats in string. Dictionary is sorted
+                 * by integer keys.
+                 */
                 foreach (KeyValuePair<char, int> kvp in freq)
                 {
+                    //if key exists, add character to character list else
+                    //initialize new list with the character and assign to value
+                    //of key.
                     if (sortedfreq.ContainsKey(kvp.Value))
                     {
                         sortedfreq[kvp.Value].Add(kvp.Key);
@@ -132,16 +150,26 @@ namespace Assignment2_CT_Spring2020
                     }
 
                 }
+
+
+                //Loop through sorted list and print characters as many times
+                //as they occur in string in order of frequency.
                 foreach (KeyValuePair<int, List<char>> kvp in sortedfreq)
                 {
+
                     foreach (char c in kvp.Value)
                     {
+                        //Loop to print each character as many times as
+                        //it appears in string.
                         for (int i = 0; i < kvp.Key; i++)
                         {
+                            //sortedfreq is sorted on integer keys in ascending
+                            //order, so add characters to starting of result.
                             result = c + result;
                         }
                     }
                 }
+
             }
             catch (Exception)
             {
@@ -149,32 +177,46 @@ namespace Assignment2_CT_Spring2020
             }
             return result;
         }
+
+   
         public static int[] Intersect1(int[] nums1, int[] nums2)
         {
 
             int[] result = new int[] { };
             try
             {
-
+                //Initialize two new arrays with size of num1 and num2 respectively.
                 int[] nums1_int1 = new int[nums1.Length];
                 int[] nums2_int1 = new int[nums2.Length];
 
+                //Deep copy of nums1 array values into nums1_int1.
+                //Changes made to this array doesn't effect original array.
                 for (int n1 = 0; n1 < nums1.Length; n1++)
                 {
                     nums1_int1[n1] = nums1[n1];
                 }
 
+                //Deep copy of nums2 array values into nums2_int1.
                 for (int n2 = 0; n2 < nums2.Length; n2++)
                 {
                     nums2_int1[n2] = nums2[n2];
                 }
 
+                //Sort the new arrays.
                 Array.Sort(nums1_int1);
                 Array.Sort(nums2_int1);
 
-                //implement merge sort
 
-                int i = 0; int j = 0; int k = 0;
+    
+                int i = 0; //used to loop through nums1_int1 array.
+                int j = 0; //used to loop through nums2_int1 array.
+                int k = 0; //used to keep track of intersect items in array nums1_int1.
+
+                /* Loop through two arrays. If elements in two arrays match, increment
+                 * to next elements in two arrays and increment intersect track(k).
+                 * If element in nums1_int1 less than nums2_int1, increment to 
+                 * next element in nums1_int1 else to next element in nums2_int1.
+                */
                 while (i < nums1_int1.Length && j < nums2_int1.Length)
                 {
                     if (nums1_int1[i] == nums2_int1[j])
@@ -192,8 +234,12 @@ namespace Assignment2_CT_Spring2020
                     }
                 }
 
+
+                //Initialize the length of result array of size k.
                 result = new int[k];
 
+                //First k elements in num1_int1 array are intersect elements
+                //which are moved into result.
                 for (int r = 0; r < k; r++)
                 {
                     result[r] = nums1_int1[r];
@@ -212,7 +258,12 @@ namespace Assignment2_CT_Spring2020
             int[] result = new int[] { };
             try
             {
+                //Initialize empty dictionary of integer keys and values.
                 Dictionary<int, int> nums1_dict = new Dictionary<int, int>();
+
+                /*Loop through integers in array and load the dictionary with
+                 * integer and count of occurrence.
+                */
                 foreach (int num in nums1)
                 {
                     if (nums1_dict.ContainsKey(num))
@@ -224,10 +275,19 @@ namespace Assignment2_CT_Spring2020
                         nums1_dict[num] = 1;
                     }
                 }
+
+                //Initialize intersect tracker.
                 int k = 0;
 
+                //Initialize empty nums1_int2 array with size of nums1.
                 int[] nums1_int2 = new int[nums1.Length];
 
+                /*Loop through integers in nums2 array. Check if nums1_dict
+                 * contains the integer key and value of that integer key is
+                 * greater than zero. If integer found in dictionary, add that number
+                 * in kth position of nums1_int2 dictionary and increment k value and
+                 * decrement integer key value by 1.
+                 */
                 foreach (int num in nums2)
                 {
                     if (nums1_dict.ContainsKey(num) && nums1_dict[num] > 0)
@@ -238,12 +298,15 @@ namespace Assignment2_CT_Spring2020
                     }
                 }
 
+                //Assign result to new array of size of intersect elements.
                 result = new int[k];
 
+                //Load result array with intersect elements.
                 for (int i = 0; i < k; i++)
                 {
                     result[i] = nums1_int2[i];
                 }
+
             }
             catch
             {
@@ -251,6 +314,7 @@ namespace Assignment2_CT_Spring2020
             }
             return result;
         }
+        
         public static bool ContainsDuplicate(char[] arr, int k)
         {
 
@@ -337,6 +401,7 @@ namespace Assignment2_CT_Spring2020
 
         public static void SolvePuzzle()
         {
+
             List<List<int>> perm = new List<List<int>>();
             List<char> uniqlist = new List<char>();
             Dictionary<char, int> uniq_dict = new Dictionary<char, int>();
@@ -345,6 +410,8 @@ namespace Assignment2_CT_Spring2020
             string output = "";
             try
             {
+
+                // Read input from console for input1, input2 and output variables.
                 Console.WriteLine("Enter input1");
                 input1 = Console.ReadLine();
                 Console.WriteLine("Enter input2");
@@ -352,11 +419,12 @@ namespace Assignment2_CT_Spring2020
                 Console.WriteLine("Enter output");
                 output = Console.ReadLine();
 
-
+                //Generate unique character list from input and output variables.
                 UniqueChar(input1);
                 UniqueChar(input2);
                 UniqueChar(output);
 
+                //method to generate unique character list.
                 void UniqueChar(string input)
                 {
                     foreach (char c in input)
@@ -372,14 +440,15 @@ namespace Assignment2_CT_Spring2020
                     }
                 }
 
-                Console.WriteLine(string.Join(",", uniqlist));
 
-
-
+                //Initialize array with all possible digits.
                 int[] opt = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
+                //Generate all possible permutation of digits in opt array
+                //and store in perm list of list.
                 Permutation(opt, 0, opt.Length - 1, perm);
 
+                //Swap two values without creating new memory storage location.
                 static void Swap(ref int a, ref int b)
                 {
                     var temp = a;
@@ -387,7 +456,7 @@ namespace Assignment2_CT_Spring2020
                     b = temp;
                 }
 
-
+                //Method to generate permutation of digits in opt array recursively.
                 static List<List<int>> Permutation(int[] opt, int start, int end, List<List<int>> perm)
                 {
                     if (start == end)
@@ -407,8 +476,8 @@ namespace Assignment2_CT_Spring2020
                     return perm;
                 }
 
-
-                double compute_length(string input)
+                //Method to compute the integer value of input and output strings.
+                double compute_number(string input)
                 {
                     int x = input.Length - 1;
                     double input_double = 0;
@@ -426,10 +495,16 @@ namespace Assignment2_CT_Spring2020
                     return input_double;
                 }
 
+
+                /* Loop through each permutation to check if adding two input
+                 * integer values produces the output integer value. Print
+                 * the character values corresponding to the permutation and exit loop.
+                 */
+
                 foreach (List<int> result in perm)
                 {
-
-                    if (result[0] == 0 || result[1] == 0)
+                    //Ignore if first value of input1 is zero.
+                    if (result[0] == 0)
                     {
                         continue;
                     }
@@ -439,15 +514,18 @@ namespace Assignment2_CT_Spring2020
                         uniq_dict[uniqlist[i]] = result[i];
                     }
 
-                    double input1_int = compute_length(input1);
-                    double input2_int = compute_length(input2);
-                    double output_int = compute_length(output);
+                    double input1_int = compute_number(input1);
+                    double input2_int = compute_number(input2);
+                    double output_int = compute_number(output);
+
+                    //ignore if first value of input2 is 0.
+                    if (input2_int < Math.Pow(10, input2.Length - 1))
+                    {
+                        continue;
+                    }
 
                     if ((input1_int + input2_int) == output_int)
                     {
-                        Console.WriteLine(input1_int);
-                        Console.WriteLine(input2_int);
-                        Console.WriteLine(output_int);
                         foreach (KeyValuePair<char, int> kvp in uniq_dict)
                         {
                             Console.WriteLine("Char: {0}, Integer:{1}", kvp.Key, kvp.Value);
@@ -455,12 +533,15 @@ namespace Assignment2_CT_Spring2020
                         break;
                     }
                 }
+
+
             }
             catch (Exception)
             {
                 throw;
             }
         }
+
         static void Main(string[] args)
         {
             Console.WriteLine("Question 1");
